@@ -1,0 +1,6 @@
+python-dateutil
+Django==1.8.2
+Unipath
+pytz
+django-simple-history
+-e git+https://github.com/botswana-harvard/edc_constants@develop#egg=edc_constants

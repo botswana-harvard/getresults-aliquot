@@ -32,12 +32,13 @@ class AliquotType(BaseUuidModel):
         unique=True,
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return "{0} {1}: {2}".format(self.alpha_code, self.numeric_code, self.name.lower())
 
     def natural_key(self):
         return (self.alpha_code, self.numeric_code)
 
     class Meta:
-        app_label = 'aliquot'
+        app_label = 'getresults_aliquot'
+        db_table = 'getresults_aliquottype'
         ordering = ["name"]

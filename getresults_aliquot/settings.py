@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'getresults',
-    'aliquot',
+    'getresults_receive',
+    'getresults_aliquot',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -53,7 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'aliquot.urls'
+ROOT_URLCONF = 'getresults_aliquot.urls'
 
 TEMPLATES = [
     {
@@ -71,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'aliquot.wsgi.application'
+WSGI_APPLICATION = 'getresults_aliquot.wsgi.application'
 
 
 # Database

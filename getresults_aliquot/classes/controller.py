@@ -28,7 +28,7 @@ class ProfileController(object):
         Grouped lab profiles share these models on the profile_group_name."""
         if not self.group_models:
             self.group_models.update({'receive': lab_profile.receive_model})
-            self.group_models.update({'aliquot': lab_profile.aliquot_model})
+            self.group_models.update({'getresults_aliquot': lab_profile.aliquot_model})
             self.group_models.update({'panel': lab_profile.panel_model})
             self.group_models.update({'aliquot_type': lab_profile.aliquot_type_model})
             self.group_models.update({'profile': lab_profile.profile_model})

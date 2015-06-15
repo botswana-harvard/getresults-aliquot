@@ -70,7 +70,7 @@ class LabProfileTests(TestCase):
 
     def test_receives3(self):
         """Asserts that receiving the requisition more than once does not
-        create additional receive and primary aliquot instances."""
+        create additional receive and primary getresults_aliquot instances."""
         self.test_visit = self.test_visit_factory(appointment=self.appointment)
         requisition_panel = RequisitionMetaData.objects.filter(
             registered_subject=self.registered_subject)[0].lab_entry.requisition_panel

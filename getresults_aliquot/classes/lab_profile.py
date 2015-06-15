@@ -11,7 +11,7 @@ from ..exceptions import SpecimenError
 class LabProfile(object):
 
     name = None
-    profile_group_name = None  # controller uses this to register the aliquot, receive, ... models so they can be referenced by the group name
+    profile_group_name = None  # controller uses this to register the getresults_aliquot, receive, ... models so they can be referenced by the group name
     receive_model = None
     panel_model = None
     aliquot_model = None
@@ -61,7 +61,7 @@ class LabProfile(object):
             try:
                 self.aliquot_model.objects.get(receive=receive)
             except self.aliquot_model.DoesNotExist:
-                # create primary aliquot
+                # create primary getresults_aliquot
                 aliquot = self.aliquot_model.objects.create(
                     aliquot_identifier=self.aliquot_identifier(receive, requisition.aliquot_type, 1),
                     primary_aliquot=None,
@@ -93,7 +93,7 @@ class LabProfile(object):
         return specimen_identifier
 
     def aliquot(self, source_aliquot_or_pk, aliquot_type, count):
-        """Creates aliquots from the source aliquot and increments the aliquot count from the existing primary."""
+        """Creates aliquots from the source getresults_aliquot and increments the getresults_aliquot count from the existing primary."""
         try:
             source_aliquot = self.aliquot_model.objects.get(pk=source_aliquot_or_pk)
         except self.aliquot_model.DoesNotExist:
@@ -116,11 +116,11 @@ class LabProfile(object):
             self.aliquot(source_aliquot, obj.aliquot_type, obj.count)
 
     def aliquot_identifier(self, source, aliquot_type, aliquot_count):
-        """Returns an aliquot identifier create from a source aliquot or,
+        """Returns an getresults_aliquot identifier create from a source getresults_aliquot or,
         if PRIMARY, from the receive identifier.
 
         Args:
-            source: either an aliquot or receive instance."""
+            source: either an getresults_aliquot or receive instance."""
         aliquot_stub = '{0}{1}'.format(aliquot_type.numeric_code.zfill(2), str(aliquot_count).zfill(2))
         try:
             return '{0}{1}'.format(source.receive.receive_identifier, aliquot_stub)

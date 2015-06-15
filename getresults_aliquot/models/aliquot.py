@@ -1,8 +1,7 @@
-import datetime
-
 from django.db import models
+from django.utils import timezone
 
-from getresults.models import Receive
+from getresults_receive.models import Receive
 
 from edc_base.model.models import BaseUuidModel
 
@@ -26,7 +25,7 @@ class Aliquot (BaseUuidModel):
         null=True,
         related_name='source',
         editable=False,
-        help_text=('Aliquot from which this aliquot was created,'
+        help_text=('Aliquot from which this getresults_aliquot was created,'
                    'Leave blank if this is the primary tube')
     )
 
@@ -38,8 +37,8 @@ class Aliquot (BaseUuidModel):
         editable=False)
 
     aliquot_datetime = models.DateTimeField(
-        verbose_name="Date and time aliquot created",
-        default=datetime.datetime.today())
+        verbose_name="Date and time getresults_aliquot created",
+        default=timezone.now)
 
     receive = models.ForeignKey(Receive)
 
@@ -92,31 +91,14 @@ class Aliquot (BaseUuidModel):
         null=True,
         blank=True)
 
-    subject_identifier = models.CharField(
-        max_length=50,
-        null=True,
-        editable=False,
-        help_text="non-user helper field to simplify search and filtering")
-
     is_packed = models.BooleanField(
         verbose_name='packed',
         default=False)
-
-    receive_identifier = models.CharField(
-        max_length=25,
-        null=True,
-        editable=False,
-        help_text="non-user helper field to simplify search and filter")
 
     objects = AliquotManager()
 
     def __str__(self):
         return self.aliquot_identifier
-
-    def save(self, *args, **kwargs):
-        self.subject_identifier = self.receive.patient.subject_identifier
-        self.receive_identifier = self.receive.receive_identifier
-        super(Aliquot, self).save(*args, **kwargs)
 
     def natural_key(self):
         return (self.aliquot_identifier,)
@@ -125,4 +107,5 @@ class Aliquot (BaseUuidModel):
         return self.aliquot_identifier
 
     class Meta:
-        app_label = 'aliquot'
+        app_label = 'getresults_aliquot'
+        db_table = 'getresults_aliquot'

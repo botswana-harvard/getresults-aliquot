@@ -10,18 +10,18 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='getresults-aliquot',
+    name='getresults-getresults-receive',
     version='0.1.0dev0',
     author=u'Erik van Widenfelt',
     author_email='ew2789@gmail.com',
     packages=find_packages(),
     include_package_data=True,
-    url='http://github/botswana-harvard/getresults-aliquot',
+    url='http://github/botswana-harvard/getresults-getresults-receive',
     license='GPL license, see LICENSE',
-    description='getresults aliquot models and processes',
+    description='getresults receive models and processes',
     long_description=README,
     zip_safe=False,
-    keywords='django getresults lis lims aliquot',
+    keywords='django getresults lis lims receive',
     install_requires=[
         'Django>=1.8',
         'django-extensions>=1.5.5',

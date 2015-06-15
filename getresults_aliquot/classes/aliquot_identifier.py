@@ -12,7 +12,7 @@ class AliquotIdentifier(object):
         else:
             parent_segment = ''.rjust(4, '0')
             self_count = 1
-        # todo: might be a good place to do a sanity check on 'parent' to 'self' aliquot type
+        # todo: might be a good place to do a sanity check on 'parent' to 'self' getresults_aliquot type
         self_segment = aliquot_type.numeric_code.rjust(2, '0') + str(self_count).rjust(2, '0')
         return '%s%s%s' % (receive.receive_identifier, parent_segment, self_segment)
 
@@ -35,7 +35,7 @@ class AliquotIdentifier(object):
             # you specified a parent but it does not exist, abandon...
             aliquot_identifier = ''
         else:
-            # create a new primary aliquot OR a child aliquot
+            # create a new primary getresults_aliquot OR a child getresults_aliquot
             if parent_aliquot:
                 # create a child
                 aliquot_identifier = self._format_identifier(
@@ -43,7 +43,7 @@ class AliquotIdentifier(object):
                     parent_aliquot=parent_aliquot,
                     aliquot_type=aliquot_type)
             else:
-                # create a new aliquot (primary)
+                # create a new getresults_aliquot (primary)
                 aliquot_identifier = self._format_identifier(
                     receive=receive,
                     aliquot_type=aliquot_type)

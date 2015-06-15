@@ -16,5 +16,6 @@ class AliquotProfile(BaseUuidModel):
         return self.name
 
     class Meta:
-        app_label = 'aliquot'
+        app_label = 'getresults_aliquot'
+        db_table = 'getresults_aliquotprofile'
         ordering = ("name", )

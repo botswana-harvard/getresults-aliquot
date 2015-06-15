@@ -5,7 +5,7 @@ from ..models import AliquotProcessing
 
 class AliquotProcessingAdmin(admin.ModelAdmin):
 
-    list_display = ('aliquot', 'profile', 'created', 'modified', 'user_created', 'user_modified')
+    list_display = ('getresults_aliquot', 'profile', 'created', 'modified', 'user_created', 'user_modified')
 
     search_fields = (
         'aliquot__aliquot_identifier',

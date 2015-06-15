@@ -15,4 +15,5 @@ class AliquotProfileItem(BaseUuidModel):
         verbose_name='aliquots to create')
 
     class Meta:
-        app_label = 'aliquot'
+        app_label = 'getresults_aliquot'
+        db_table = 'getresults_aliquotprofileitem'

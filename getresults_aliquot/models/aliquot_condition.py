@@ -18,8 +18,9 @@ class AliquotCondition(BaseUuidModel):
     objects = models.Manager()
 
     def __str__(self):
-        return '{} {}'.format(self.short_name.upper(), self.name)
+        return '{}: {}'.format(self.name.upper(), self.description)
 
     class Meta:
-        app_label = 'aliquot'
+        app_label = 'getresults_aliquot'
+        db_table = 'getresults_aliquotcondition'
         ordering = ("name", )

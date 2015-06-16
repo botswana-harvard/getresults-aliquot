@@ -1,7 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel
+from edc_base.model.models import BaseUuidModel, HistoricalRecords
 
 
 class AliquotType(BaseUuidModel):
@@ -31,6 +31,8 @@ class AliquotType(BaseUuidModel):
         ],
         unique=True,
     )
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return "{0} {1}: {2}".format(self.alpha_code, self.numeric_code, self.name.lower())

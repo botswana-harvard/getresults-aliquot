@@ -1,6 +1,6 @@
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel
+from edc_base.model.models import BaseUuidModel, HistoricalRecords
 
 
 class AliquotProfileItem(BaseUuidModel):
@@ -13,6 +13,8 @@ class AliquotProfileItem(BaseUuidModel):
 
     count = models.IntegerField(
         verbose_name='aliquots to create')
+
+    history = HistoricalRecords()
 
     class Meta:
         app_label = 'getresults_aliquot'

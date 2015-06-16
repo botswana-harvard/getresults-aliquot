@@ -1,6 +1,6 @@
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel
+from edc_base.model.models import BaseUuidModel, HistoricalRecords
 
 
 class AliquotProfile(BaseUuidModel):
@@ -10,7 +10,7 @@ class AliquotProfile(BaseUuidModel):
         max_length=50,
         unique=True)
 
-    objects = models.Manager()
+    history = HistoricalRecords()
 
     def __unicode__(self):
         return self.name

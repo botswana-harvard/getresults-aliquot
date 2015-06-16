@@ -1,6 +1,6 @@
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel
+from edc_base.model.models import BaseUuidModel, HistoricalRecords
 
 
 class AliquotCondition(BaseUuidModel):
@@ -15,7 +15,7 @@ class AliquotCondition(BaseUuidModel):
 
     display_order = models.IntegerField(default=0)
 
-    objects = models.Manager()
+    history = HistoricalRecords()
 
     def __str__(self):
         return '{}: {}'.format(self.name.upper(), self.description)

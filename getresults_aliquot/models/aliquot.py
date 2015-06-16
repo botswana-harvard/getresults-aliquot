@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from getresults_receive.models import Receive
 
-from edc_base.model.models import BaseUuidModel
+from edc_base.model.models import BaseUuidModel, HistoricalRecords
 
 from ..choices import ALIQUOT_STATUS, SPECIMEN_MEASURE_UNITS, SPECIMEN_MEDIUM
 from ..managers import AliquotManager
@@ -94,6 +94,8 @@ class Aliquot (BaseUuidModel):
     is_packed = models.BooleanField(
         verbose_name='packed',
         default=False)
+
+    history = HistoricalRecords()
 
     objects = AliquotManager()
 

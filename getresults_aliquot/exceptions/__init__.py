@@ -10,3 +10,7 @@ class NotRegistered(Exception):
 
 class SpecimenError(Exception):
     pass
+
+
+class AliquotError(Exception):
+    pass

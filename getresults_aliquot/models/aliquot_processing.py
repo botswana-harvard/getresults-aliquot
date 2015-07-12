@@ -8,7 +8,7 @@ from edc_base.model.models import BaseUuidModel, HistoricalRecords
 class AliquotProcessing(BaseUuidModel):
 
     print_labels = models.BooleanField(
-        verbose_name='Print getresults_aliquot labels now',
+        verbose_name='Print aliquot labels now',
         default=True,
         help_text='If checked, labels will be printed immediately.')
 

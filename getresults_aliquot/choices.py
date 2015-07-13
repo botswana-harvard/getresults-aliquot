@@ -1,12 +1,12 @@
 ABS_CALC = (
     ('absolute', 'Absolute'),
     ('calculated', 'Calculated'),
-    )
+)
 
 ALIQUOT_STATUS = (
     ('available', 'available'),
     ('consumed', 'consumed'),
-    )
+)
 
 MODIFY_ACTIONS = (
     ('INSERT', 'Insert'),
@@ -14,7 +14,7 @@ MODIFY_ACTIONS = (
     ('DELETE', 'Delete'),
     ('PRINT', 'Print'),
     ('VIEW', 'Print'),
-    )
+)
 
 ORDER_STATUS = (
     ('PENDING', 'Pending'),
@@ -47,14 +47,14 @@ SPECIMEN_MEASURE_UNITS = (
     ('uL', 'uL'),
     ('spots', 'spots'),
     ('n/a', 'Not Applicable'),
-    )
+)
 
 SPECIMEN_MEDIUM = (
     ('tube_any', 'Tube'),
     ('tube_edta', 'Tube EDTA'),
     ('swab', 'Swab'),
     ('dbs_card', 'DBS Card'),
-    )
+)
 
 UNITS = (
     ('%', '%'),

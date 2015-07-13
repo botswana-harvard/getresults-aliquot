@@ -9,9 +9,10 @@ from ..exceptions import SpecimenError
 
 
 class LabProfile(object):
-
+    """ controller uses this to register the getresults_aliquot,
+    receive, ... models so they can be referenced by the group name."""
     name = None
-    profile_group_name = None  # controller uses this to register the getresults_aliquot, receive, ... models so they can be referenced by the group name
+    profile_group_name = None
     receive_model = None
     panel_model = None
     aliquot_model = None
@@ -62,7 +63,7 @@ class LabProfile(object):
                 self.aliquot_model.objects.get(receive=receive)
             except self.aliquot_model.DoesNotExist:
                 # create primary getresults_aliquot
-                aliquot = self.aliquot_model.objects.create(
+                self.aliquot_model.objects.create(
                     aliquot_identifier=self.aliquot_identifier(receive, requisition.aliquot_type, 1),
                     primary_aliquot=None,
                     source_aliquot=None,
@@ -93,7 +94,8 @@ class LabProfile(object):
         return specimen_identifier
 
     def aliquot(self, source_aliquot_or_pk, aliquot_type, count):
-        """Creates aliquots from the source getresults_aliquot and increments the getresults_aliquot count from the existing primary."""
+        """Creates aliquots from the source getresults_aliquot and increments
+        the getresults_aliquot count from the existing primary."""
         try:
             source_aliquot = self.aliquot_model.objects.get(pk=source_aliquot_or_pk)
         except self.aliquot_model.DoesNotExist:

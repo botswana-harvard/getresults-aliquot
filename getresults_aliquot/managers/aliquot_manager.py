@@ -8,6 +8,7 @@ class AliquotManager(models.Manager):
         return self.get(aliquot_identifier=aliquot_identifier)
 
     def create_aliquots(self, aliquot, numeric_code=None, measure=None, count=None):
+        """Creates and returns a list of aliquots instances."""
         created = []
         AliquotType = apps.get_model(self.model._meta.app_label, 'aliquottype')
         count = count or 1
@@ -32,14 +33,14 @@ class AliquotManager(models.Manager):
         return created
 
     def create_primary(self, aliquot):
-        aliquot.aliquot_identifier = aliquot.primary_aliquot_identifier
+        """Creates and returns an primary aliquot (get or create)."""
         try:
-            aliquot = self.create(
+            primary_aliquot = self.get(aliquot_identifier=aliquot.primary_aliquot_identifier)
+        except self.model.DoesNotExist:
+            primary_aliquot = self.create(
                 receive=aliquot.receive,
                 aliquot_identifier=aliquot.primary_aliquot_identifier,
                 parent_aliquot_identifier=None,
                 primary_aliquot_identifier=aliquot.primary_aliquot_identifier,
                 aliquot_type=aliquot.aliquot_type)
-        except IntegrityError:
-            pass
-        return aliquot
+        return primary_aliquot

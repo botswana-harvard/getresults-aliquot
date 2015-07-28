@@ -18,9 +18,10 @@ from .aliquot_type import AliquotType
 
 class Aliquot (BaseUuidModel):
 
-    identifier_pattern = re.compile(
-        '^{}(0000|[0-9]{{3}}[1-9]{{1}})([0-9]{{3}}[1-9]{{1}})$'.format(
-            settings.ALIQUOT_IDENTIFIER_PREFIX_PATTERN))
+    @property
+    def prefix_pattern(self):
+        checkdigit_pattern = '[0-9]{1}'
+        return settings.ALIQUOT_IDENTIFIER_PREFIX_PATTERN + checkdigit_pattern
 
     receive = models.ForeignKey(Receive)
 
@@ -141,8 +142,14 @@ class Aliquot (BaseUuidModel):
                     'Invalid aliquot identifier format. Got {}'.format(identifier))
 
     @property
+    def identifier_pattern(self):
+        return re.compile(
+            '^{}(0000|[0-9]{{3}}[1-9]{{1}})([0-9]{{3}}[1-9]{{1}})$'.format(
+                self.prefix_pattern))
+
+    @property
     def identifier_prefix(self):
-        match = re.search(settings.ALIQUOT_IDENTIFIER_PREFIX_PATTERN, self.aliquot_identifier)
+        match = re.search(self.prefix_pattern, self.aliquot_identifier)
         return match.group()
 
     @property
@@ -151,7 +158,7 @@ class Aliquot (BaseUuidModel):
 
     @property
     def parent_segment(self):
-        return self.aliquot_identifier[-8:11]
+        return self.aliquot_identifier[-8:-4]
 
     @property
     def number(self):

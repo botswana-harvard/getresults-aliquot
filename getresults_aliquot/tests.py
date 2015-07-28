@@ -1,12 +1,16 @@
+import re
 from copy import copy
 
-from django.conf import settings
 from django.test import TestCase
 from django.utils import timezone
 
 from getresults_aliquot.exceptions import AliquotError
 from getresults_aliquot.models import Aliquot, AliquotType
 from getresults_receive.models import Receive, Patient
+
+
+good_pattern = '[A-Z]{2}[0-9]{5}'
+Aliquot.prefix_pattern = good_pattern
 
 
 class TestAliquot(TestCase):
@@ -21,6 +25,7 @@ class TestAliquot(TestCase):
     @property
     def receive(self):
         return Receive.objects.create(
+            receive_identifier='AA34567',
             patient=self.patient,
             receive_datetime=timezone.now())
 
@@ -40,6 +45,41 @@ class TestAliquot(TestCase):
             aliquot_identifier,
             Aliquot.objects.get(aliquot_identifier=aliquot_identifier).aliquot_identifier)
 
+    def test_good_pattern(self):
+        good_pattern = '[A-Z]{2}[0-9]{5}'
+        Aliquot.prefix_pattern = good_pattern
+        aliquot_identifier = 'AA3456700000201'
+        self.assertEqual(aliquot_identifier.split('00000201')[0], re.match(good_pattern, aliquot_identifier).group())
+        receive = self.receive
+        aliquot_type = self.aliquot_type
+        self.assertIsInstance(
+            Aliquot.objects.create(
+                receive=receive,
+                aliquot_identifier=aliquot_identifier,
+                aliquot_type=aliquot_type,
+            ),
+            Aliquot
+        )
+        self.assertEqual(
+            aliquot_identifier,
+            Aliquot.objects.get(aliquot_identifier=aliquot_identifier).aliquot_identifier)
+
+    def test_bad_pattern(self):
+        bad_pattern = '[A-Z]{3}[0-9]{5}'
+        Aliquot.prefix_pattern = bad_pattern
+        aliquot_identifier = 'AA3456700000201'
+        self.assertIsNone(re.match(bad_pattern, aliquot_identifier))
+        receive = self.receive
+        aliquot_type = self.aliquot_type
+        self.assertRaises(
+            AliquotError,
+            Aliquot.objects.create,
+            receive=receive,
+            aliquot_identifier=aliquot_identifier,
+            aliquot_type=aliquot_type,
+        )
+        Aliquot.prefix_pattern = good_pattern
+
     def test_is_primary(self):
         aliquot = Aliquot(
             receive=self.receive,
@@ -52,34 +92,25 @@ class TestAliquot(TestCase):
         self.assertEqual(aliquot.primary_aliquot_identifier, aliquot.aliquot_identifier)
 
     def test_create_primary(self):
-        aliquot = Aliquot(
-            receive=self.receive,
-            aliquot_identifier='AA3456700000201',
-            primary_aliquot_identifier='AA3456700000201',
-            aliquot_type=self.aliquot_type,
-        )
-        primary = Aliquot.objects.create_primary(aliquot)
+        receive = self.receive
+        aliquot_type = self.aliquot_type
+        primary = Aliquot.objects.create_primary(receive, aliquot_type.numeric_code)
         self.assertTrue(primary.is_primary)
         self.assertEqual(primary.aliquot_identifier, 'AA3456700000201')
 
-    def test_create_bad_primary(self):
-        aliquot = Aliquot(
-            receive=self.receive,
-            aliquot_identifier='AA3456700000202',
-            primary_aliquot_identifier='AA3456700000202',
-            aliquot_type=self.aliquot_type,
-        )
-        self.assertRaises(Aliquot.DoesNotExist, Aliquot.objects.create_primary, aliquot)
-
     def test_is_not_primary(self):
+        receive = self.receive
+        aliquot_type = self.aliquot_type
+        primary = Aliquot.objects.create_primary(receive, aliquot_type.numeric_code)
         aliquot = Aliquot(
-            receive=self.receive,
+            receive=receive,
             aliquot_identifier='AA3456702010202',
             parent_aliquot_identifier='AA3456700000201',
-            primary_aliquot_identifier='AA3456700000201',
-            aliquot_type=self.aliquot_type,
+            primary_aliquot_identifier=primary.aliquot_identifier,
+            aliquot_type=aliquot_type,
         )
-        primary = Aliquot.objects.create_primary(copy(aliquot))
+        alq = copy(aliquot)
+        primary = Aliquot.objects.create_primary(alq.receive, '02')
         self.assertTrue(primary.is_primary)
         self.assertEqual(primary.aliquot_identifier, 'AA3456700000201')
         aliquot.save()
@@ -117,7 +148,7 @@ class TestAliquot(TestCase):
         aliquot.parent_aliquot_identifier = 'AA3456700010001'
         aliquot.save()
 
-    def test_create_aliquot_from_primay(self):
+    def test_create_aliquot_from_primary(self):
         aliquot_identifier = 'AA3456700000201'
         aliquot = Aliquot.objects.create(
             receive=self.receive,

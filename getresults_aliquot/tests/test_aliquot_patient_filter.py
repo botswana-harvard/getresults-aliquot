@@ -29,17 +29,14 @@ class TestAliquotPaitentFilter(TestCase):
         return AliquotType.objects.create(
             name='whole blood', alpha_code='WB', numeric_code='02')
 
-    def test_create_get(self):
-        aliquot_identifier = 'AA3456700000201'
+    @property
+    def aliquot(self):
+        """Test if the quesry set will filter by patient protocol."""
         Aliquot.objects.create(
             receive=self.receive,
-            aliquot_identifier=aliquot_identifier,
+            aliquot_identifier='AA3456700000201',
             aliquot_type=self.aliquot_type,
         )
-        self.assertEqual(
-            aliquot_identifier,
-            Aliquot.objects.get(aliquot_identifier=aliquot_identifier).aliquot_identifier)
-
-        filter = admin.AliquotPatientFilter(None, {'patient': self.patient}, Aliquot, admin.AliquotAdmin)
+        filter = admin.AliquotPatientFilter(None, {'receive__patient__protocol': self.patient.protocol}, Aliquot, admin.AliquotAdmin)
         aliquot = filter.queryset(None, Aliquot.objects.all())[0]
-        self.assertEqual(aliquot.patient, self.patient)
+        self.assertEqual(aliquot.patient.protocol, self.patient.protocol)

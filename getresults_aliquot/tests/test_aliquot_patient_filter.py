@@ -12,9 +12,9 @@ class TestAliquotPaitentFilter(TestCase):
 
     @property
     def patient(self):
-        patient_identifier = 'P12345678'
         return Patient.objects.create(
-            patient_identifier=patient_identifier,
+            patient_identifier='P12345678',
+            protocol='protocol_1',
             registration_datetime=timezone.now())
 
     @property

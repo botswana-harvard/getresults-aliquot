@@ -35,6 +35,6 @@ class TestAliquotPaitentFilter(TestCase):
             aliquot_identifier='AA3456700000201',
             aliquot_type=self.aliquot_type,
         )
-        filter = AliquotPatientFilter(None, {'receive__patient__protocol': self.patient.protocol}, Aliquot, AliquotAdmin)
+        filter = AliquotPatientFilter(None, {'receive__patient__protocol': self.receive.patient.protocol}, Aliquot, AliquotAdmin)
         aliquot = filter.queryset(None, Aliquot.objects.all())[0]
         self.assertEqual(aliquot.patient.protocol, self.patient.protocol)

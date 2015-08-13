@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.test import TestCase
 from django.utils import timezone
 
@@ -6,6 +5,7 @@ from getresults_aliquot.models import Aliquot, AliquotType
 from getresults_receive.models import Receive, Patient
 from ..admin import AliquotAdmin
 from ..filters import AliquotPatientFilter
+
 
 class TestAliquotPaitentFilter(TestCase):
 
@@ -35,9 +35,6 @@ class TestAliquotPaitentFilter(TestCase):
             aliquot_identifier='AA3456700000201',
             aliquot_type=self.aliquot_type,
         )
-        filter = AliquotPatientFilter(None,
-            {'receive__patient__protocol': self.patient.protocol},
-            Aliquot, AliquotAdmin
-        )
+        filter = AliquotPatientFilter(None, {'receive__patient__protocol': self.patient.protocol}, Aliquot, AliquotAdmin)
         aliquot = filter.queryset(None, Aliquot.objects.all())[0]
         self.assertEqual(aliquot.patient.protocol, self.patient.protocol)

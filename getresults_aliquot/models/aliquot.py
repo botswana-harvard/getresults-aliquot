@@ -20,7 +20,7 @@ class Aliquot (BaseUuidModel):
 
     @property
     def prefix_pattern(self):
-        checkdigit_pattern = '[0-9]{1}'
+        checkdigit_pattern = ''  # [0-9]{1}'
         return settings.ALIQUOT_IDENTIFIER_PREFIX_PATTERN + checkdigit_pattern
 
     receive = models.ForeignKey(Receive)

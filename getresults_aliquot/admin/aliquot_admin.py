@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from getresults.admin import admin_site
+
 from ..models import Aliquot, AliquotCondition, AliquotType
 
 
@@ -15,14 +17,14 @@ class AliquotAdmin(admin.ModelAdmin):
     list_display = ('aliquot_identifier', 'aliquot_type', 'original_measure', 'current_measure',
                     'measure_units', 'aliquot_condition', 'receive')
     readonly_fields = ('aliquot_identifier',)
-admin.site.register(Aliquot, AliquotAdmin)
+admin_site.register(Aliquot, AliquotAdmin)
 
 
 class AliquotTypeAdmin(admin.ModelAdmin):
     list_display = ('alpha_code', 'numeric_code', 'name', 'description', 'created', 'modified')
-admin.site.register(AliquotType, AliquotTypeAdmin)
+admin_site.register(AliquotType, AliquotTypeAdmin)
 
 
 class AliquotConditionAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'created', 'modified')
-admin.site.register(AliquotCondition, AliquotConditionAdmin)
+admin_site.register(AliquotCondition, AliquotConditionAdmin)

@@ -6,11 +6,20 @@ from django.utils import timezone
 
 from getresults_aliquot.exceptions import AliquotError
 from getresults_aliquot.models import Aliquot, AliquotType
-from getresults_receive.models import Receive, Patient
+from getresults_receive.models import Receive
+from getresults_patient.models import Patient
+from getresults.tests.base_selenium_test import BaseSeleniumTest
 
 
 good_pattern = '[A-Z]{2}[0-9]{5}'
 Aliquot.prefix_pattern = good_pattern
+
+
+class TestSelenium(BaseSeleniumTest):
+
+    def test_admin(self):
+        self.navigate_to_admin()
+        self.login()
 
 
 class TestAliquot(TestCase):

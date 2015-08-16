@@ -17,7 +17,7 @@ class AliquotAdmin(admin.ModelAdmin):
               'current_measure', 'measure_units', 'aliquot_condition', 'status', 'comment')
     list_display = ('aliquot_identifier', 'aliquot_type', 'original_measure', 'current_measure',
                     'measure_units', 'aliquot_condition', 'receive')
-    list_filter = (AliquotPatientFilter)
+    list_filter = (AliquotPatientFilter, )
     readonly_fields = ('aliquot_identifier',)
 admin_site.register(Aliquot, AliquotAdmin)
 

@@ -3,6 +3,7 @@ from django.contrib import admin
 from getresults.admin import admin_site
 
 from ..models import Aliquot, AliquotCondition, AliquotType
+from ..filters import AliquotPatientFilter
 
 
 class AliquotAdmin(admin.ModelAdmin):
@@ -16,6 +17,7 @@ class AliquotAdmin(admin.ModelAdmin):
               'current_measure', 'measure_units', 'aliquot_condition', 'status', 'comment')
     list_display = ('aliquot_identifier', 'aliquot_type', 'original_measure', 'current_measure',
                     'measure_units', 'aliquot_condition', 'receive')
+    list_filter = (AliquotPatientFilter)
     readonly_fields = ('aliquot_identifier',)
 admin_site.register(Aliquot, AliquotAdmin)
 

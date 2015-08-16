@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from getresults.admin import admin_site
+
 from ..models import AliquotProcessing
 
 
@@ -16,4 +18,4 @@ class AliquotProcessingAdmin(admin.ModelAdmin):
 
     list_filter = ('processing_profile', 'created', 'modified', 'user_created', 'user_modified')
 
-admin.site.register(AliquotProcessing, AliquotProcessingAdmin)
+admin_site.register(AliquotProcessing, AliquotProcessingAdmin)

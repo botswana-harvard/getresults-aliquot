@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from getresults.admin import admin_site
+
 from ..models import AliquotProfileItem
 
 
@@ -16,4 +18,4 @@ class AliquotProfileItemAdmin(admin.ModelAdmin):
         'aliquot_type__alpha_code',
         'aliquot_type__numeric_code', 'created', 'modified', 'user_created', 'user_modified')
 
-admin.site.register(AliquotProfileItem, AliquotProfileItemAdmin)
+admin_site.register(AliquotProfileItem, AliquotProfileItemAdmin)

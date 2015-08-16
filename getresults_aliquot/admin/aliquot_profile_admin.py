@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from getresults.admin import admin_site
 
 from ..models import AliquotProfile, AliquotProfileItem
 
@@ -25,4 +26,4 @@ class AliquotProfileAdmin(admin.ModelAdmin):
 
     inlines = [AliquotProfileItemInlineAdmin]
 
-admin.site.register(AliquotProfile, AliquotProfileAdmin)
+admin_site.register(AliquotProfile, AliquotProfileAdmin)

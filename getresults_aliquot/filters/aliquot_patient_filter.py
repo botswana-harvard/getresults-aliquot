@@ -1,7 +1,7 @@
 from django.contrib.admin import SimpleListFilter
 from django.utils.translation import ugettext_lazy as _
 
-from getresults_receive.models import Patient
+from getresults_patient.models import Patient
 
 
 class AliquotPatientFilter(SimpleListFilter):

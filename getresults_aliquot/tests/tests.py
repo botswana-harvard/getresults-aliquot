@@ -1,14 +1,11 @@
 import re
 from copy import copy
 
-from django.test import TestCase
-from django.utils import timezone
-
 from getresults_aliquot.exceptions import AliquotError
 from getresults_aliquot.models import Aliquot, AliquotType
-from getresults_receive.models import Receive
-from getresults_patient.models import Patient
 from getresults.tests.base_selenium_test import BaseSeleniumTest
+
+from .base_aliquot_test import BaseTestAliquot
 
 
 good_pattern = '[A-Z]{2}[0-9]{5}'
@@ -22,26 +19,7 @@ class TestSelenium(BaseSeleniumTest):
         self.login()
 
 
-class TestAliquot(TestCase):
-
-    @property
-    def patient(self):
-        patient_identifier = 'P12345678'
-        return Patient.objects.create(
-            patient_identifier=patient_identifier,
-            registration_datetime=timezone.now())
-
-    @property
-    def receive(self):
-        return Receive.objects.create(
-            receive_identifier='AA34567',
-            patient=self.patient,
-            receive_datetime=timezone.now())
-
-    @property
-    def aliquot_type(self):
-        return AliquotType.objects.create(
-            name='whole blood', alpha_code='WB', numeric_code='02')
+class TestAliquot(BaseTestAliquot):
 
     def test_create_get(self):
         aliquot_identifier = 'AA3456700000201'

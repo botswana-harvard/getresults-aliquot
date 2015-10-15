@@ -20,8 +20,8 @@ class AliquotManager(models.Manager):
             aliquot_type = AliquotType.objects.get(numeric_code=numeric_code)
         for index in range(1, count + 1):
             aliquot_identifier = self.aliquot_identifier(
-                aliquot.identifier_prefix,
-                aliquot.own_segment,
+                aliquot.get_identifier_prefix(),
+                aliquot.get_own_segment(),
                 numeric_code, aliquot.number + index)
             new_aliquot = self.create(
                 receive=aliquot.receive,

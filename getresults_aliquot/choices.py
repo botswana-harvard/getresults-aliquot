@@ -1,29 +1,26 @@
+from edc_constants.constants import PARTIAL, PENDING, COMPLETE, NEW, INSERT, UPDATE, DELETE, PRINT, VIEW
+
 ABS_CALC = (
     ('absolute', 'Absolute'),
     ('calculated', 'Calculated'),
 )
 
-ALIQUOT_STATUS = (
-    ('available', 'available'),
-    ('consumed', 'consumed'),
-)
-
 MODIFY_ACTIONS = (
-    ('INSERT', 'Insert'),
-    ('UPDATE', 'Update'),
-    ('DELETE', 'Delete'),
-    ('PRINT', 'Print'),
-    ('VIEW', 'Print'),
+    (INSERT, 'Insert'),
+    (UPDATE, 'Update'),
+    (DELETE, 'Delete'),
+    (PRINT, 'Print'),
+    (VIEW, 'Print'),
 )
 
 ORDER_STATUS = (
-    ('PENDING', 'Pending'),
-    ('PARTIAL', 'Partial'),
-    ('COMPLETE', 'Complete'),
+    (PENDING, 'Pending'),
+    (PARTIAL, 'Partial'),
+    (COMPLETE, 'Complete'),
 )
 
 RESULT_RELEASE_STATUS = (
-    ('NEW', 'New'),
+    (NEW, 'New'),
     ('RELEASED', 'Released'),
     ('AMENDED', 'Amended'),
 )
@@ -40,20 +37,6 @@ RESULT_QUANTIFIER = (
     ('>=', '>='),
     ('<', '<'),
     ('<=', '<='),
-)
-
-SPECIMEN_MEASURE_UNITS = (
-    ('mL', 'mL'),
-    ('uL', 'uL'),
-    ('spots', 'spots'),
-    ('n/a', 'Not Applicable'),
-)
-
-SPECIMEN_MEDIUM = (
-    ('tube_any', 'Tube'),
-    ('tube_edta', 'Tube EDTA'),
-    ('swab', 'Swab'),
-    ('dbs_card', 'DBS Card'),
 )
 
 UNITS = (

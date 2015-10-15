@@ -1,6 +1,7 @@
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel, HistoricalRecords
+from edc_base.audit_trail import AuditTrail
+from edc_base.model.models import BaseUuidModel
 
 
 class AliquotProfile(BaseUuidModel):
@@ -10,7 +11,7 @@ class AliquotProfile(BaseUuidModel):
         max_length=50,
         unique=True)
 
-    history = HistoricalRecords()
+    history = AuditTrail()
 
     def __unicode__(self):
         return self.name

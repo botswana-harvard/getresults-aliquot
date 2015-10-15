@@ -1,6 +1,7 @@
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel, HistoricalRecords
+from edc_base.model.models import BaseUuidModel
+from edc_base.audit_trail import AuditTrail
 
 
 class AliquotProfileItem(BaseUuidModel):
@@ -14,7 +15,7 @@ class AliquotProfileItem(BaseUuidModel):
     count = models.IntegerField(
         verbose_name='aliquots to create')
 
-    history = HistoricalRecords()
+    history = AuditTrail()
 
     class Meta:
         app_label = 'getresults_aliquot'

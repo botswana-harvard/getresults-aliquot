@@ -1,8 +1,7 @@
 from django.db import models
 
-from edc_base.model.models import BaseUuidModel, HistoricalRecords
-
-# from getresults_aliquot import site_lab_profiles
+from edc_base.model.models import BaseUuidModel
+from edc_base.audit_trail import AuditTrail
 
 
 class AliquotProcessing(BaseUuidModel):
@@ -12,7 +11,7 @@ class AliquotProcessing(BaseUuidModel):
         default=True,
         help_text='If checked, labels will be printed immediately.')
 
-    history = HistoricalRecords()
+    history = AuditTrail()
 
     def __str__(self):
         return self.aliquot.aliquot_identifier

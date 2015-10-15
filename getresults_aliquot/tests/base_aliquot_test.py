@@ -24,8 +24,7 @@ class BaseTestAliquot(TransactionTestCase):
             receive_identifier='AA34567',
             patient=self.patient,
             receive_datetime=timezone.now(),
-            collection_date=timezone.now(),
-            colection_time=timezone.now(),
+            collection_datetime=timezone.now(),
             specimen_condition='10',
             tube_count=1)
 

@@ -5,7 +5,7 @@ from django.db import models
 from django.utils import timezone
 
 from getresults_receive.models import Receive
-from edc_base.audit_trail import AuditTrail
+from simple_history.models import HistoricalRecords as AuditTrail
 from edc_base.model.models import BaseUuidModel
 
 from ..exceptions import AliquotError
